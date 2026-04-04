@@ -843,7 +843,6 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-// Contact form
 const form=document.getElementById('contact-form');
 if(form){
   form.addEventListener('submit',async function(e){
@@ -852,7 +851,7 @@ if(form){
     const success=document.getElementById('form-success');
     const error=document.getElementById('form-error');
     btn.textContent='Sending...';btn.disabled=true;
-    success.style.display='none';error.style.display='none';
+    success.classList.remove('show');error.classList.remove('show');
     try{
       const res=await fetch(form.action,{
         method:'POST',
@@ -860,16 +859,15 @@ if(form){
         headers:{Accept:'application/json'}
       });
       if(res.ok){
-        success.style.display='block';
+        success.classList.add('show');
         form.reset();
-        btn.textContent='Send Message';btn.disabled=false;
       } else {
         throw new Error();
       }
     } catch {
-      error.style.display='block';
-      btn.textContent='Send Message';btn.disabled=false;
+      error.classList.add('show');
     }
+    btn.textContent='Send Message';btn.disabled=false;
   });
 }
 </script>
