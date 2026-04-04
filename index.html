@@ -1,207 +1,803 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sukhkirandeep Kaur Sidhu — Data Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0f1a;
+    --bg2: #111827;
+    --bg3: #1a2235;
+    --border: rgba(255,255,255,0.07);
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --text: #e8e6e0;
+    --muted: #8a8f9e;
+    --accent: #4f8ef7;
+    --card-bg: rgba(255,255,255,0.03);
+  }
 
-<title>Data Portfolio</title>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<link rel="stylesheet" href="style.css">
+  html { scroll-behavior: smooth; }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(11,15,26,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.88rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-inner { max-width: 900px; }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.2s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1.1;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.35s forwards;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.5s forwards;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: #b0b5c4;
+    max-width: 620px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.65s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.8s forwards;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.8rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    border-radius: 2px;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .btn-primary { background: var(--gold); color: var(--bg); }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  /* STATS BAR */
+  .stats-bar {
+    position: relative;
+    z-index: 1;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    gap: 4rem;
+    flex-wrap: wrap;
+  }
+
+  .stat { display: flex; flex-direction: column; }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 4rem;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 3rem;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text {
+    font-size: 1.02rem;
+    color: #b5bac9;
+    line-height: 1.85;
+  }
+
+  .about-text p + p { margin-top: 1rem; }
+
+  .about-text strong { color: var(--gold); font-weight: 500; }
+
+  .about-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem 1.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: border-color 0.2s;
+  }
+
+  .contact-item:hover { border-color: rgba(201,168,76,0.3); }
+
+  .contact-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .contact-val {
+    color: var(--text);
+    font-size: 0.92rem;
+    text-decoration: none;
+    word-break: break-all;
+  }
+
+  .contact-val:hover { color: var(--gold-light); }
+
+  /* PROJECTS */
+  .projects-bg { background: var(--bg2); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: border-color 0.25s, transform 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .project-card:hover { border-color: rgba(201,168,76,0.25); transform: translateY(-4px); }
+  .project-card:hover::before { opacity: 1; }
+
+  .project-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+  }
+
+  .project-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--text);
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    color: #8a90a0;
+    line-height: 1.75;
+    flex: 1;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.25rem 0.65rem;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--gold);
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+    margin-top: 0.5rem;
+    width: fit-content;
+  }
+
+  .project-link:hover { color: var(--gold); }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .skill-group {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .skill-group:hover { border-color: rgba(201,168,76,0.25); }
+
+  .skill-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
+  }
+
+  .skill-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .skill-item {
+    font-size: 0.9rem;
+    color: #b0b5c4;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .skill-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-links { display: flex; gap: 1.5rem; }
+
+  .footer-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+    section { padding: 4rem 1.5rem; }
+    .stats-bar { padding: 1.5rem; gap: 2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    footer { padding: 1.5rem; flex-direction: column; align-items: flex-start; }
+  }
+</style>
 </head>
-
 <body>
 
-
-
+<!-- NAV -->
 <nav>
-<a href="#about">About</a>
-<a href="#projects">Projects</a>
-<a href="#skills">Skills</a>
-<a href="#contact">Contact</a>
+  <div class="nav-logo">SKS · Portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
 
-<div class="container">
-
-<div class="profile">
-<br>
-<br>
-
-<h2>Sukhkirandeep Kaur Sidhu, Ph.D.</h2>
-<p>Professor | Data Specialist</p>
-
-<hr>
-
-<p>
-Professor and Data Professional with years of experience in databases, SQL, and data analysis.
-Passionate about transforming complex data into actionable insights and building practical
-data-driven solutions.
-</p>
-
-
-<section id="contact">
-
-<h2>Contact</h2>
-
-<p>Email: sukhkirandeep.kaur@gmail.com</p>
-
-<p>
-Github:
-<a href="https://github.com/kirangil0189l" target="_blank">
-View My Github
-</a>
-</p>
-
-<p>
-LinkedIn:
-<a href="https://www.linkedin.com/in/sukhkirandeep-kaur-sidhu-ph-d-18420a82" target="_blank">
-View My LinkedIn Profile
-</a>
-</p>
-
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-tag">Ph.D. · Data Specialist · Open to Work</div>
+    <h1>Sukhkirandeep<br><em>Kaur Sidhu</em></h1>
+    <div class="hero-sub">Professor · Data Analyst · Database Specialist</div>
+    <p class="hero-desc">
+      Computer science researcher with a Ph.D. and postdoctoral experience building machine learning models, data pipelines, and BI dashboards. Passionate about turning complex data into decisions.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">View Projects →</a>
+      <a href="mailto:sukhkirandeep.kaur@gmail.com" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
 </section>
 
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <span class="stat-num">Ph.D.</span>
+    <span class="stat-label">Computer Science</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">20+</span>
+    <span class="stat-label">Research Papers</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">6+</span>
+    <span class="stat-label">Portfolio Projects</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">15+</span>
+    <span class="stat-label">Tools & Technologies</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">CA</span>
+    <span class="stat-label">Based in Canada</span>
+  </div>
 </div>
 
-
-<div class="content">
-
+<!-- ABOUT -->
 <section id="about">
-
-<h2>About Me</h2>
-
-<p>
-I am computer science researcher with a Ph.D. in Computer Science and strong experience in SQL, Python, and data analytics. My background includes teaching programming and database systems at Canadian post-secondary institutions. During my postdoctoral research, I worked on machine learning models for image data analysis and developed graphical user interfaces for data processing. I enjoy building data pipelines, dashboards, and predictive models that support data-driven decision making.
-</p>
-
+  <div class="section-label">// 01 — About</div>
+  <h2 class="section-title">Background &<br><em>Experience</em></h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I am a computer science researcher with a Ph.D. in Computer Science and strong hands-on experience in SQL, Python, and data analytics. My background bridges academia and applied data work — I have taught programming and database systems at Canadian post-secondary institutions, giving me a deep understanding of both the theory and practice of data.</p>
+      <p>During my postdoctoral research, I worked on machine learning models for image data analysis and developed graphical user interfaces for data processing pipelines. I enjoy building end-to-end data solutions — from raw ETL pipelines and data warehouses to interactive dashboards and predictive models — that support real, data-driven decision making.</p>
+      <p>Currently seeking roles in <strong>Data Analysis</strong>, <strong>Data Science</strong>, or <strong>Database Development</strong> where I can apply my research depth and hands-on project experience.</p>
+    </div>
+    <div class="about-contact" id="contact">
+      <div class="contact-item">
+        <span class="contact-label">Email</span>
+        <a href="mailto:sukhkirandeep.kaur@gmail.com" class="contact-val">sukhkirandeep.kaur@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">GitHub</span>
+        <a href="https://github.com/kirangil0189l" class="contact-val" target="_blank">github.com/kirangil0189l</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">LinkedIn</span>
+        <a href="https://www.linkedin.com/in/sukhkirandeep-kaur-sidhu-ph-d-18420a82" class="contact-val" target="_blank">linkedin.com/in/sukhkirandeep-kaur-sidhu</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Location</span>
+        <span class="contact-val">Canada · Open to Remote</span>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- PROJECTS -->
+<section id="projects" class="projects-bg">
+  <div class="section-label">// 02 — Work</div>
+  <h2 class="section-title">Featured<br><em>Projects</em></h2>
+  <div class="projects-grid">
 
-<section id="projects">
-<h2 class="section-title">Projects</h2>
+    <div class="project-card">
+      <div class="project-num">01</div>
+      <div class="project-title">Energy Production Data Warehouse & Analytics Dashboard</div>
+      <div class="project-desc">Designed and implemented an end-to-end SQL Server data warehouse to track and analyze asset downtime across energy production facilities. Built a fully automated ETL pipeline to ingest, clean, and transform raw operational data into structured fact and dimension tables. Developed an interactive Power BI dashboard that reduced manual reporting time by ~60% and enabled teams to identify high-downtime assets and pinpoint failure trends.</div>
+      <div class="project-tags">
+        <span class="tag">SQL Server</span>
+        <span class="tag">ETL</span>
+        <span class="tag">Power BI</span>
+        <span class="tag">Data Warehousing</span>
+      </div>
+      <a class="project-link" href="https://github.com/kirangil0189l/Energy-Production-Data-Warehouse-Analytics-Dashboard" target="_blank">→ View on GitHub</a>
+    </div>
 
-<div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">02</div>
+      <div class="project-title">Hospital Admission Analysis</div>
+      <div class="project-desc">Analyzed 200,000+ New York hospital admission records to uncover patterns in patient volume, length of stay, and resource utilization across departments. Designed an interactive Tableau dashboard with drill-down filters by hospital, diagnosis, and time period. Key findings revealed significant weekend admission spikes and seasonal trends to inform staffing and bed allocation strategies.</div>
+      <div class="project-tags">
+        <span class="tag">Tableau</span>
+        <span class="tag">Healthcare Analytics</span>
+        <span class="tag">EDA</span>
+      </div>
+      <a class="project-link" href="https://github.com/kirangil0189l/New-York-Hospitals-Utilization-Report" target="_blank">→ View on GitHub</a>
+    </div>
 
-<div class="project-card">
-<h3>Energy Production Data Warehouse & Analytics Dashboard</h3>
+    <div class="project-card">
+      <div class="project-num">03</div>
+      <div class="project-title">Fake Job Classifier</div>
+      <div class="project-desc">Built a machine learning classifier to detect fraudulent job postings, trained on 17,000+ job listings. Engineered features using TF-IDF and trained a Logistic Regression model with SMOTE to handle class imbalance, achieving AUC = 0.96. Added a keyword-based flagging system to highlight scam signals like suspicious emails, excessive pay, or "no interview" claims. Deployed as a fully interactive Streamlit web application — paste any job description and get an instant real/fake prediction.</div>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">NLP</span>
+        <span class="tag">Scikit-learn</span>
+        <span class="tag">Streamlit</span>
+        <span class="tag">SMOTE</span>
+      </div>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:0.5rem;">
+        <a class="project-link" href="https://fake-job-classifier-d9bcrvavmswvkfhv6buwhp.streamlit.app/" target="_blank">🚀 Live App</a>
+        <a class="project-link" href="https://github.com/kirangil0189l/fake-job-classifier" target="_blank">→ GitHub</a>
+      </div>
+    </div>
 
-<p>SQL data warehouse project for analyzing asset downtime.</p>
+    <div class="project-card">
+      <div class="project-num">04</div>
+      <div class="project-title">Employees Sales Performance Insights</div>
+      <div class="project-desc">Developed a complete BI pipeline simulating a realistic multi-channel sales environment. Used PL/SQL stored procedures to automate data aggregation, calculate KPIs, and generate ranked employee summaries across regions and product lines. Delivered a Tableau dashboard giving sales managers a clear view of top performers, underperforming channels, and revenue distribution.</div>
+      <div class="project-tags">
+        <span class="tag">Tableau</span>
+        <span class="tag">PL/SQL</span>
+        <span class="tag">Business Intelligence</span>
+        <span class="tag">Data Aggregation</span>
+      </div>
+      <a class="project-link" href="https://github.com/kirangil0189l/employee-channel-sales-plsql-dashboard" target="_blank">→ View on GitHub</a>
+    </div>
 
-<p class="tools"> SQL Server. ETL. PowerBI</p>
+    <div class="project-card">
+      <div class="project-num">05</div>
+      <div class="project-title">Crime Severity Index in Canadian Provinces</div>
+      <div class="project-desc">Conducted a multi-year analysis of Statistics Canada's Crime Severity Index across all Canadian provinces from 2019–2023, with a focused 2022 vs. 2023 year-over-year comparison. Built a Tableau visualization suite featuring choropleth maps and trend lines that communicate regional disparities — useful for policy researchers, journalists, and public safety analysts.</div>
+      <div class="project-tags">
+        <span class="tag">Tableau</span>
+        <span class="tag">Public Data</span>
+        <span class="tag">Data Storytelling</span>
+        <span class="tag">Canadian Stats</span>
+      </div>
+      <a class="project-link" href="https://github.com/kirangil0189l/Trends-in-Crime-Severity-Across-Canadian-Provinces" target="_blank">→ View on GitHub</a>
+    </div>
 
-<a class="project-btn" href="https://github.com/kirangil0189l/Energy-Production-Data-Warehouse-Analytics-Dashboard">View Project</a>
+    <div class="project-card">
+      <div class="project-num">06</div>
+      <div class="project-title">Customer Churn Prediction</div>
+      <div class="project-desc">Developed a predictive model to identify customers at high risk of churning using a telecom dataset of 7,000+ records. Applied feature engineering, class imbalance handling, and hyperparameter tuning to train a LightGBM model achieving ~91% ROC-AUC. Identified key churn drivers — contract type, tenure, and monthly charges — to produce a ranked probability score for retention outreach prioritization.</div>
+      <div class="project-tags">
+        <span class="tag">Python</span>
+        <span class="tag">LightGBM</span>
+        <span class="tag">Scikit-learn</span>
+        <span class="tag">Pandas</span>
+      </div>
+      <a class="project-link" href="https://github.com/kirangil0189l/customer-churn-prediction" target="_blank">→ View on GitHub</a>
+    </div>
 
-</div>
-  
-<div class="project-card">
-<h3>Hospital Admission Analysis</h3>
-
-<p>Tableau dashboard analyzing hospital admission data.</p>
-
-<p class="tools">  Tableau. Healthcare Data Analysis. Exploratory Data Analysis</p>
-
-<a class="project-btn" href="https://github.com/kirangil0189l/New-York-Hospitals-Utilization-Report">View Project</a>
-
-</div>
-
-
-<div class="project-card">
-<h3>Fake Job Classifier</h3>
-
-<p>This project detects fake job postings using machine learning and provides an interactive web interface using Streamlit.</p>
-
-<p class="tools">   Python . Machine Learning</p>
-
-<a class="project-btn" href="https://github.com/kirangil0189l/fake-job-classifier">View Project</a>
-
-</div>
-
-
-<div class="project-card">
-<h3>Employees Sales Performance Insights</h3>
-
-<p>This project demonstrates a complete analytics pipeline simulating realistic sales assignments to employees.</p>
-
-<p class="tools"> Tableau . PL/SQL . Business Intelligence. Data Aggregation</p>
-
-<a class="project-btn"  href="https://github.com/kirangil0189l/employee-channel-sales-plsql-dashboard">View Project</a>
-
-</div>
-
-
-<div class="project-card">
-<h3>Crime Severity Index in Canadian Provinces</h3>
-
-<p>
-This project visualizes the Crime Severity Index across Canadian provinces from 2019 to 2023,
-with a detailed comparison of 2022 vs 2023.
-</p>
-
-<p class="tools"> Tableau</p>
-
-<a class="project-btn" href="https://github.com/kirangil0189l/Trends-in-Crime-Severity-Across-Canadian-Provinces">View Project</a>
-
-</div>
-
-
-
-
-<div class="project-card">
-
-<h3>Customer Churn Prediction</h3>
-
-<p>Machine learning model using LightGBM to predict customer churn.</p>
-
-<p class="tools"> Python . Pandas . Scikit-learn</p>
-
-<a class="project-btn" href="https://github.com/kirangil0189l/customer-churn-prediction">View Project</a>
-
-</div>
-
+  </div>
 </section>
 
-
-<section id="skills">
-
-<h2>Skills</h2>
-
-<div class="skills-container">
-
-<span class="skill">Python</span>
-<span class="skill">SQL</span>
-<span class="skill">PostgreSQL</span>
-<span class="skill">Power BI</span>
-<span class="skill">Machine Learning</span>
-<span class="skill">Pandas</span>
-<span class="skill">Tableau</span>
-<span class="skill">Data Visualization</span>
-<span class="skill">ETL</span>
-<span class="skill">Data Warehousing</span>
-
-</div>
-
+<!-- RESEARCH -->
+<section id="research" class="projects-bg">
+  <div class="section-label">// 03 — Research</div>
+  <h2 class="section-title">Academic<br><em>Contributions</em></h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">Publications</div>
+      <div class="project-title">20+ Peer-Reviewed Papers</div>
+      <div class="project-desc">Authored and co-authored over 20 research papers published in reputable academic journals and international conferences. Research areas span wireless sensor networks, machine learning, computer vision, network security, and data analysis.</div>
+      <div class="project-tags"><span class="tag">Journals</span><span class="tag">Conferences</span><span class="tag">Peer-Reviewed</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">Postdoctoral Research</div>
+      <div class="project-title">Forensic ML at West Virginia University</div>
+      <div class="project-desc">Worked on a CSAFE research grant at the Department of Forensic and Investigative Science. Developed a deep learning model using semantic segmentation to automatically extract breech face areas from scanned cartridge case images. Built a PyQT5 GUI and web-based interface to streamline workflows for forensic firearm examiners.</div>
+      <div class="project-tags"><span class="tag">Deep Learning</span><span class="tag">Computer Vision</span><span class="tag">PyTorch</span><span class="tag">PyQT5</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">Research Grant</div>
+      <div class="project-title">Cybersecurity Forensics — Checkpoint Technologies</div>
+      <div class="project-desc">Secured competitive research funding from Checkpoint Software Technologies Pvt. Ltd. as Principal Investigator. Designed a framework for BYOD (Bring Your Own Device) Cyber Security Forensic Readiness Infrastructure, combining network forensics and security policy design.</div>
+      <div class="project-tags"><span class="tag">Cybersecurity</span><span class="tag">BYOD</span><span class="tag">Forensics</span><span class="tag">PI-Funded</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">Ph.D. Supervision</div>
+      <div class="project-title">Mentored Researchers at LPU</div>
+      <div class="project-desc">Supervised two Ph.D. dissertations and guided students in developing independent research projects, collectively resulting in 9 published papers. Research topics spanned machine learning, networking, and cybersecurity.</div>
+      <div class="project-tags"><span class="tag">Ph.D. Supervision</span><span class="tag">Mentorship</span><span class="tag">9 Student Papers</span></div>
+    </div>
+  </div>
 </section>
 
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">// 04 — Education</div>
+  <h2 class="section-title">Academic<br><em>Background</em></h2>
+  <div style="display:flex; flex-direction:column; gap:1.5rem; max-width:860px;">
+    <div class="contact-item" style="flex-direction:row; align-items:flex-start; gap:2rem; flex-wrap:wrap;">
+      <div style="flex:0 0 60px;">
+        <div class="contact-label">2018</div>
+        <div style="font-family:'DM Mono',monospace; font-size:0.75rem; color:var(--gold); margin-top:0.3rem;">Ph.D.</div>
+      </div>
+      <div style="flex:1; min-width:240px;">
+        <div style="font-family:'DM Serif Display',serif; font-size:1.1rem; margin-bottom:0.3rem;">Computer Science &amp; Engineering</div>
+        <div style="font-size:0.9rem; color:var(--muted); margin-bottom:0.5rem;">National Institute of Technology, Srinagar, India</div>
+        <div style="font-size:0.86rem; color:#8a90a0; line-height:1.65;">Dissertation: <em>"Improving Network Lifetime of Wireless Sensor Networks using Load Balancing Techniques"</em><br>Coursework: Wireless Sensor Networks · Data Mining &amp; Big Data Analytics · Statistics · Distributed Systems · Research Methodology</div>
+      </div>
+    </div>
+    <div class="contact-item" style="flex-direction:row; align-items:flex-start; gap:2rem; flex-wrap:wrap;">
+      <div style="flex:0 0 60px;">
+        <div class="contact-label">2012</div>
+        <div style="font-family:'DM Mono',monospace; font-size:0.75rem; color:var(--gold); margin-top:0.3rem;">M.Tech</div>
+      </div>
+      <div style="flex:1; min-width:240px;">
+        <div style="font-family:'DM Serif Display',serif; font-size:1.1rem; margin-bottom:0.3rem;">Masters in Technology, Computer Science &amp; Engineering</div>
+        <div style="font-size:0.9rem; color:var(--muted); margin-bottom:0.5rem;">Lovely Professional University, India</div>
+        <div style="font-size:0.86rem; color:#8a90a0;">Thesis: <em>"Image Segmentation using Bacteria Foraging Optimization"</em> &nbsp;·&nbsp; 70.29%</div>
+      </div>
+    </div>
+    <div class="contact-item" style="flex-direction:row; align-items:flex-start; gap:2rem; flex-wrap:wrap;">
+      <div style="flex:0 0 60px;">
+        <div class="contact-label">2010</div>
+        <div style="font-family:'DM Mono',monospace; font-size:0.75rem; color:var(--gold); margin-top:0.3rem;">B.Tech</div>
+      </div>
+      <div style="flex:1; min-width:240px;">
+        <div style="font-family:'DM Serif Display',serif; font-size:1.1rem; margin-bottom:0.3rem;">Bachelors in Technology, Computer Science &amp; Engineering</div>
+        <div style="font-size:0.9rem; color:var(--muted); margin-bottom:0.5rem;">Punjabi University, India</div>
+        <div style="font-size:0.86rem; color:#8a90a0;">71%</div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- SKILLS -->
+<section id="skills" class="projects-bg">
+  <div class="section-label">// 05 — Expertise</div>
+  <h2 class="section-title">Skills &<br><em>Technologies</em></h2>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">Languages</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-dot"></span>Python</div>
+        <div class="skill-item"><span class="skill-dot"></span>SQL / PL/SQL</div>
+        <div class="skill-item"><span class="skill-dot"></span>R</div>
+        <div class="skill-item"><span class="skill-dot"></span>C / C++</div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Databases</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-dot"></span>SQL Server</div>
+        <div class="skill-item"><span class="skill-dot"></span>PostgreSQL</div>
+        <div class="skill-item"><span class="skill-dot"></span>Oracle / PL/SQL</div>
+        <div class="skill-item"><span class="skill-dot"></span>MongoDB (NoSQL)</div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Visualization &amp; BI</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-dot"></span>Tableau</div>
+        <div class="skill-item"><span class="skill-dot"></span>Power BI</div>
+        <div class="skill-item"><span class="skill-dot"></span>Matplotlib</div>
+        <div class="skill-item"><span class="skill-dot"></span>Streamlit</div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Machine Learning &amp; AI</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-dot"></span>Scikit-learn</div>
+        <div class="skill-item"><span class="skill-dot"></span>TensorFlow / PyTorch</div>
+        <div class="skill-item"><span class="skill-dot"></span>LightGBM / NLP</div>
+        <div class="skill-item"><span class="skill-dot"></span>OpenCV / Computer Vision</div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Data Engineering</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-dot"></span>ETL Pipelines</div>
+        <div class="skill-item"><span class="skill-dot"></span>Data Warehousing</div>
+        <div class="skill-item"><span class="skill-dot"></span>Pandas / NumPy</div>
+        <div class="skill-item"><span class="skill-dot"></span>Advanced Statistics</div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Cloud &amp; Tools</div>
+      <div class="skill-list">
+        <div class="skill-item"><span class="skill-dot"></span>Azure</div>
+        <div class="skill-item"><span class="skill-dot"></span>Git / GitHub</div>
+        <div class="skill-item"><span class="skill-dot"></span>Flask / PyQT5</div>
+        <div class="skill-item"><span class="skill-dot"></span>Jupyter Notebooks</div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:3rem;">
+    <div class="section-label" style="margin-bottom:1rem;">// Languages Spoken</div>
+    <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+      <div class="contact-item" style="min-width:160px; flex:1;"><span class="contact-label">English</span><span class="contact-val">Full Professional</span></div>
+      <div class="contact-item" style="min-width:160px; flex:1;"><span class="contact-label">Punjabi</span><span class="contact-val">Native / Bilingual</span></div>
+      <div class="contact-item" style="min-width:160px; flex:1;"><span class="contact-label">Hindi</span><span class="contact-val">Native / Bilingual</span></div>
+    </div>
+  </div>
+</section>
 
-
-</div>
-
-</div>
-
-
+<!-- FOOTER -->
 <footer>
-<p>© 2026 Sukhkirandeep Kaur Sidhu | Data Portfolio</p>
+  <div class="footer-copy">© 2026 Sukhkirandeep Kaur Sidhu · Data Portfolio</div>
+  <div class="footer-links">
+    <a href="mailto:sukhkirandeep.kaur@gmail.com">Email</a>
+    <a href="https://github.com/kirangil0189l" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/sukhkirandeep-kaur-sidhu-ph-d-18420a82" target="_blank">LinkedIn</a>
+  </div>
 </footer>
 
 </body>
-
 </html>
