@@ -7,7 +7,44 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&family=Fira+Code:wght@300;400&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+#contact-form input,
+#contact-form textarea {
+  width: 100%;
+  background: #111827;
+  border: 1px solid #1e2d40;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  color: #e0eaf5;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  display: block;
+  margin-bottom: 12px;
+}
+#contact-form input::placeholder,
+#contact-form textarea::placeholder { color: #3d5066; }
+#contact-form input:focus,
+#contact-form textarea:focus { border-color: #2dd4a7; background: #141f2e; }
+#contact-form textarea { resize: vertical; min-height: 100px; }
 
+#submit-btn {
+  background: linear-gradient(135deg, #1a9e7a, #2dd4a7);
+  color: #071510;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1.75rem;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+#submit-btn:hover { opacity: 0.85; }
+#submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+#form-success { display: none; margin-top: 12px; color: #2dd4a7; font-size: 13px; }
+#form-error   { display: none; margin-top: 12px; color: #f07070; font-size: 13px; }
+#form-success.show, #form-error.show { display: block; }
 :root{
   --bg:        #0d1117;
   --bg1:       #161b22;
