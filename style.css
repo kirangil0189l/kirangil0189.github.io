@@ -155,6 +155,35 @@ font-size:14px;
 /* .content{
     width: 100%;
 } */
+#contact-form input,
+#contact-form textarea {
+  width: 100%;
+  background: #111827;
+  border: 1px solid #1e2d40;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  color: #e0eaf5;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+#contact-form input::placeholder,
+#contact-form textarea::placeholder { color: #3d5066; }
+#contact-form input:focus,
+#contact-form textarea:focus { border-color: #2dd4a7; background: #141f2e; }
+
+#submit-btn {
+  background: linear-gradient(135deg, #1a9e7a, #2dd4a7);
+  color: #071510;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 1.75rem;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+#submit-btn:hover { opacity: 0.88; }
 
 .profile{
     height:50vh;
